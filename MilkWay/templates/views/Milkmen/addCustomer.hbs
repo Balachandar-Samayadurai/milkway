@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Customer Form</title>
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    /* Header styles */
+    .header {
+      background-color: #2C3E50;
+      color: #fff;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Add styles for the company logo */
+    .logo {
+      height: 50px;
+      margin-right: 10px;
+    }
+
+    /* Form styles */
+    .form {
+      margin: 20px auto;
+      max-width: 600px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+
+    .form h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .form input[type=text], .form input[type=number], .form input[type=email], .form input[type=date] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      outline: none;
+    }
+
+    .form select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      outline: none;
+    }
+
+    .form label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .form button[type=submit] {
+      background-color: #00A000;
+      color: #fff;
+      padding: 10px 30px;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
+      margin-left: 30%;
+      cursor: pointer;
+    }
+
+    .form button[type=submit]:hover {
+      background-color: rgb(3, 214, 3);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <img src="/css/logo.png" alt="MilkWay Logo" class="logo">
+    <h1>MilkWay</h1>    
+  </div>
+
+  <div class="form">
+    <h2>Customer Form</h2>
+    <form action="/addCustomer?" method="post">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="address">ADDRESS:</label>
+      <input type="text" id="address" name="address" required>
+
+      <label for="mobno">MOBILE NUMBER:</label>
+      <input type="number" id="mobno" name="mobno" required>
+
+      <label for="email">EMAIL:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="location">LOCATION:</label>
+      <input type="text" id="location" name="location" required>
+
+      <label for="user">SET DEFAULT AS</label>
+      <input type="radio" name="user" value="consumer" >CONSUMER
+      <input type="radio" name="user" value="supplier" >SUPPLIER
+      </br></br>
+      <button type="submit">GENERATE ID</button>
+    </form>
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entry Form</title>
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    /* Header styles */
+    .header {
+      background-color: #2C3E50;
+      color: #fff;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Add styles for the company logo */
+    .logo {
+      height: 50px;
+      margin-right: 10px;
+    }
+
+    /* Form styles */
+    .form {
+      margin: 20px auto;
+      max-width: 600px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+
+    .form h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .form input[type=text], .form input[type=number], .form input[type=email], .form input[type=date] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      outline: none;
+    }
+
+    .form select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      outline: none;
+    }
+
+    .form label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .form button {
+      background-color: #00A000;
+      color: #fff;
+      padding: 10px 30px;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
+      margin-left: 30%;
+      cursor: pointer;
+    }
+
+    .form button[type=submit]:hover {
+      background-color: rgb(3, 214, 3);
+    }
+
+    {{!--  --}}
+        .popup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.popup-content {
+  
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  max-width: 400px;
+  text-align: center;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+    {{!--  --}}
+  </style>
+</head>
+<body onload="openPopup()">
+
+{{!--  --}}
+    {{!-- <button onclick="">Open Popup</button> --}}
+
+    <div id="myPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h2 style="text-align: center;">Enter Customer id</h2>
+        <input type="text" id="textInput">
+        <button onclick="displayText()">Submit</button>
+    </div>
+    </div>
+
+    <div id="output"></div>
+{{!--  --}}
+
+  <div class="header">
+    <img src="/css/logo.png" alt="MilkWay Logo" class="logo">
+    <h1>MilkWay</h1>    
+  </div>
+
+  <div class="form">
+    <h2>Customer Form</h2>
+    {{!-- <form action="/addCustomer?" method="post"> --}}
+
+      <label for="id">Id:</label>
+      <input type="text" id="id" name="id" required readonly>
+
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required readonly>
+
+      <label for="date">DATE:</label>
+      <input type="date" id="date" name="date" required >
+
+      <label for="user">User:</label>
+      <input type="text" id="user" name="user" required readonly>
+
+      <label for="daytime">Day time:</label>
+      <select id="daytime">
+        <option value="morning">Morning</option>
+        <option value="evening">Evening</option>
+        <option value="both">Both</option>
+      </select>
+
+      <label for="litre">LITRE:</label>
+      <input type="number" id="litre" name="litre">
+
+      {{!-- <label for="user">SET DEFAULT AS</label>
+      <input type="radio" name="user" value="consumer" >CONSUMER
+      <input type="radio" name="user" value="supplier" >SUPPLIER
+      </br></br> --}}
+      <button onclick="updateEntry()">Add entry</button>
+    {{!-- </form> --}}
+  </div>
+</body>
+<script>
+
+    const id = document.getElementById("id");
+    const name = document.getElementById("name");
+    const date = document.getElementById("date");
+    const litre = document.getElementById("litre");
+    const user = document.getElementById("user");
+    const daytime = document.getElementById("daytime");
+    date.valueAsDate = new Date();
+
+    let currId = undefined;
+    let currObj = null;
+    const textInput = document.getElementById("textInput");
+
+    {{!--  --}}
+        function openPopup() {
+            document.getElementById("myPopup").style.visibility = "visible";
+        }
+
+       async function closePopup() {
+            document.getElementById("myPopup").style.visibility = "hidden";
+            if(!textInput.value){
+                alert("Must enter your ID!");
+                openPopup();
+            }
+            else{
+                currId = textInput.value;
+                const fetchResult = await fetch(`http://localhost:9000/getCustomerDetail?uid=${currId}`);
+                const jsonResult = await fetchResult.json();
+                if(Array.isArray(jsonResult["state"]) && jsonResult["state"].length){
+                    currObj = jsonResult["state"][0];
+                    console.log(currObj);
+                    id.value = currObj["uid"];
+                    name.value = currObj["name"];
+                    litre.value = currObj["standardLitre"] || 2;
+                    user.value = currObj["user"];
+                    return;
+                }
+                else{
+                    alert("ID not found please Enter valid ID");
+                    openPopup();
+                }
+            }
+        }
+
+        function displayText() {
+            closePopup();
+        }
+
+        async function updateEntry(){
+          {{!-- ev.preventDefault(); --}}
+          console.log("called")
+          if(currObj){
+            let d = new Date(date.value);
+            let upd = false;
+
+            let arr = currObj["transaction"][new Date().toLocaleDateString()];
+            console.log(arr)
+
+            if(JSON.stringify(arr) !== undefined){
+                console.log('on ',currObj[ currObj["user"] === "supplier" ? "supply" : "recieve" ]);
+                if(currObj[ currObj["user"] === "supplier" ? "supply" : "recieve" ][`${d.getFullYear()}-${d.getMonth()+1}`]){
+                    currObj[ currObj["user"] === "supplier" ? "supply" : "recieve" ][`${d.getFullYear()}-${d.getMonth()+1}`] += parseFloat(litre.value);
+                }
+                else{
+                    currObj[ currObj["user"] === "supplier" ? "supply" : "recieve" ][`${d.getFullYear()}-${d.getMonth()+1}`] = parseFloat(litre.value);
+                }
+                console.log('currObj ',currObj);
+                arr[daytime.value] = parseFloat(litre.value);
+                upd = true;
+            }
+            
+
+            {{!-- if(currObj["user"] === 'supplier'){
+                console.log(currObj["supply"][`${d.getFullYear()}-${d.getMonth()+1}`])
+                currObj["supply"][`${d.getFullYear()}-${d.getMonth()+1}`] += parseFloat(litre.value);
+            }
+            else{
+                currObj["recieve"][`${d.getFullYear()}-${d.getMonth()+1}`] += parseFloat(litre.value);
+            } --}}
+
+            console.log(currObj);
+
+            currObj["transaction"][new Date().toLocaleDateString()] = upd ? arr : JSON.parse(`{ "${daytime.value}" : ${parseFloat(litre.value)} }`);
+            console.log(currObj);
+            fetch("/updateCustomerEntry", {
+                'method' : 'PATCH',
+                'headers' : {
+                   'Content-type': 'application/json; charset=UTF-8',
+                 },
+                 'body' : JSON.stringify({ state : currObj })
+            });
+          }
+          else{
+            alert("error");
+          }
+        }
+    {{!--  --}}
+
+    {{!-- id.value =  --}}
+
+</script>
+</html>
+

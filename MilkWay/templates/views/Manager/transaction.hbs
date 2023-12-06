@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TRANSACTION</title>
+    <style>
+      /* Global styles */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      /* Header styles */
+      .header {
+      background-color: #2C3E50;
+      color: #fff;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+    }
+    
+    /* Add styles for the company logo */
+    .logo {
+      height: 50px;
+      margin-right: 10px;
+    }
+
+      /* Button grid styles */
+      .button-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1rem;
+        margin: 2rem 1rem;
+      }
+
+      .button {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 150px;
+        background-color: #f2f2f2;
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+        color: #333;
+        transition: all 0.2s ease-in-out;
+      }
+      .button img{
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        }
+      .button:hover {
+        background-color: #e0e0e0;
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+        <img src="/public/css/logo.png" alt="MilkWay Logo" class="logo">
+        <h1>MilkWay</h1>
+      </div>
+
+    <div class="button-grid">
+      <a href="" class="button">
+        <h2>NOTE TRANSACTION</h2>
+      </a>
+
+      <a href="m2.html" class="button">
+        <div class="button__logo"></div>
+        <h2>PENDING TRANSACTION</h2>
+      </a>
+
+      <a href="" class="button">
+        <div class="button__logo"></div>
+        <h2>HISTORY</h2>
+      </a>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AddCustomer</title>
+  <style>
+  /* Base styles */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  /* Header styles */
+  .header {
+    background-color: #2C3E50;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Add styles for the company logo */
+  .logo {
+    height: 50px;
+    margin-right: 10px;
+  }
+
+  /* Style for the top container */
+  .top {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    color: black;
+  }
+
+  /* Style for the Add Milkmen button */
+  .top button {
+    background-color: grey;
+    padding: 10px 30px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    margin-right: 10%;
+    cursor: pointer;
+  }
+
+  /* Style for the Select Month&Year container */
+  .date {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    margin-left: 50%;
+  }
+
+  .date input[type="month"] {
+    margin-left: 10px;
+    border: none;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    outline: none;
+  }
+
+  /* Style for the dynamic table */
+  .table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+  }
+
+  .table thead {
+    background-color: #2C3E50;
+    color: #fff;
+  }
+
+  .table th,
+  .table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+
+  .table th {
+    font-weight: bold;
+  }
+
+  .table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+    td {
+      cursor: pointer;
+    }
+
+    {{!-- prompt starts--}}
+
+    #prompt-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 1;
+                visibility: hidden;
+            }
+
+            #prompt {
+                background-color: white;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+                max-width: 400px;
+                text-align: center;
+            }
+
+            .button-container {
+                display: flex;
+                justify-content: space-evenly;
+                margin-top: 20px;
+            }
+
+            button {
+                background-color: #4CAF50;
+                border: none;
+                color: white;
+                padding: 10px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            button:hover {
+                background-color: #3e8e41;
+            }
+
+
+    {{!-- prompt ends --}}
+  
+  @media (max-width: 768px) {
+    .top {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .top button {
+      margin-top: 10px;
+      margin-right: 0;
+    }
+
+    .date {
+      margin: 10px auto;
+      text-align: center;
+      margin-right: 30px;
+    }
+
+    .date input[type="month"] {
+      width: 100%;
+      margin-left: 0;
+    }
+
+  }
+  
+
+
+  </style>
+</head>
+<body>
+
+    {{!-- prompt start --}}
+    <div id="prompt-container">
+        <div id="prompt">
+          <h2>Control center</h2>
+          {{!-- <p>Prompt message goes here.</p> --}}
+          <div class="button-container">
+            <button id="update-button">Update</button>
+            <button id="delete-button">Delete</button>
+            <button id="close-button">Close</button>
+          </div>
+        </div>
+      </div>
+      {{!-- prompt ends --}}
+
+
+  <div class="header">
+    <img src="/css/logo.png" alt="MilkWay Logo" class="logo">
+    <h1>MilkWay</h1>
+  </div>
+  <div class="top">
+    <h3>Add Customer</h3>
+    <a href="mycustomer/addCustomer"><button type="button">+</button></a>
+    <div class="date">
+      <h4>Select Month&Year:</h4>
+      <input type="month" id="month" onchange="fetchDetails()">
+    </div>
+  </div>
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <tr onclick="enablePrompt()">
+          <th>Name &amp; ID</th>
+          <th>Supplied</th>
+          <th>Received</th>
+          {{!-- <th>Edit Info</th> --}}
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        {{!-- <tr title="click to edit">
+          <td>karthick (12345)</td>
+          <td>50</td>
+          <td>45</td>
+          <td><button onclick="editInfo()">Edit Info</button></td>
+        </tr>
+        <tr>
+          <td>vishal (67890)</td>
+          <td>25</td>
+          <td>30</td>
+          <td><button onclick="editInfo()">Edit Info</button></td>
+        </tr>
+        <tr>
+          <td>hari (54321)</td>
+          <td>35</td>
+          <td>35</td>
+          <td><button onclick="editInfo()">Edit Info</button></td>
+        </tr> --}}
+      </tbody>
+    </table>
+  </div>
+</body>
+
+<script>
+  function editInfo() {
+    window.location.href = "/templates/views/Manager/editMilkmen.hbs";
+  }
+
+  let currentObj = undefined;
+
+  {{!-- Prompt starts --}}
+
+            const promptContainer = document.getElementById("prompt-container");
+            const updateButton = document.getElementById("update-button");
+            const deleteButton = document.getElementById("delete-button");
+            const closeButton = document.getElementById("close-button");
+
+            updateButton.addEventListener("click", updateFunction);
+            deleteButton.addEventListener("click", deleteFunction);
+            closeButton.addEventListener("click", closeFunction);
+
+            function updateFunction(obj) {
+                // Code to execute when the Update button is clicked
+                obj.preventDefault();
+                console.log(currentObj)
+                window.location.href = `/customer/panel/mycustomer/editCustomer`;
+                delete currentObj["password"];
+                sessionStorage["state"] = JSON.stringify(currentObj);
+            }
+
+            async function deleteFunction(ev) {
+                // Code to execute when the Delete button is clicked
+                ev.preventDefault();
+                const fetchResult = await fetch(`http://localhost:9000/deleteCustomer?uid=${currentObj["uid"]}`, {
+                  method : "DELETE",
+                  headers: {
+                    'Content-type': 'application/json; charset=UTF-8' 
+                  }
+                });
+                const jsonResult = await fetchResult.json();
+                console.log(jsonResult);
+                fetchDetails();
+                closePrompt();
+            }
+
+            function closeFunction() {
+                promptContainer.style.visibility = "hidden";
+            }
+
+
+  {{!-- prompt ends --}}
+
+  function enablePrompt(obj){
+      document.getElementById("prompt-container").style.visibility = "visible";
+      currentObj = obj;
+  }
+
+  function closePrompt() {
+    document.getElementById("prompt-container").style.visibility = "hidden";
+  }
+
+const d = document.getElementById("month");
+
+d.valueAsDate = new Date();
+
+async function fetchDetails(){
+    const res = await fetch("http://localhost:9000/getCustomerDetails");
+    const json = await res.json();
+    const state = json["state"];
+    console.log(state)
+    const tbody = document.getElementById("tbody");
+
+    const tr = (name, uid, supply, recieve, user, obj)=>{
+    console.log(name, uid, supply, recieve)
+    const t = document.createElement("tr");
+    
+    let td = document.createElement("td");
+    td.innerHTML = name + ` (${uid})`;
+    t.appendChild(td);
+
+    t.onclick = (ev) =>{
+        ev.preventDefault();
+        enablePrompt(obj);
+    } 
+
+    if(user === 'supplier'){
+        let td1 = document.createElement("td");
+        {{!-- console.log(`Date ${new Date(d.value).getFullYear()}-${new Date(d.value).getMonth()}`); --}}
+        td1.innerHTML = supply[`${new Date(d.value).getFullYear()}-${new Date(d.value).getMonth()+1}`] || 0;
+        t.appendChild(td1);
+
+        let td2 = document.createElement("td");
+        td2.innerHTML = "-";
+        t.appendChild(td2);
+    }
+    else{
+        let td1 = document.createElement("td");
+        td1.innerHTML = "-";
+        t.appendChild(td1);
+
+        let td2 = document.createElement("td");
+        td2.innerHTML = recieve[`${new Date(d.value).getFullYear()}-${new Date(d.value).getMonth()+1}`] || 0;
+        t.appendChild(td2);
+    }
+
+    return t;
+  }
+  tbody.innerHTML = "";
+  for(let i = 0 ; i < state.length ; i++){
+      tbody.appendChild(tr(state[i]["name"], state[i]["uid"], state[i]["supply"], state[i]["recieve"], state[i]["user"], state[i]));
+  }
+}
+
+fetchDetails();
+
+</script>
+</html>

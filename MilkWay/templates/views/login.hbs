@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>login form</title>
+
+   <!-- custom css file link  -->
+   <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<div class="container">
+		<img src="css/logo.png" alt="Logo" class="logo">
+		<h2>Welcome To MilkWay!</h2>
+		<form action="/login" method="post">
+			<label for="id">ID:</label>
+			<input type="text" id="id" name="id" oninput="saveName()" required>
+			<label for="password">Password:</label>
+			<input type="password" id="password" name="password" required>
+			<label for="user">User:</label>
+			<select name="user">
+				<option name="user" value="manager">Manager</option>
+				<option name="user" value="milkmen">Milkmen</option>
+				<option name="user" value="customer">Customer</option>
+			</select>
+			<input type="submit" value="Login">
+		</form>
+	</div>
+  
+</body>
+	<script>
+		const id = document.getElementById("id");
+		function saveName(){
+			console.log("Changed")
+			sessionStorage["uid"] = id.value;
+		}
+	</script>
+</html>

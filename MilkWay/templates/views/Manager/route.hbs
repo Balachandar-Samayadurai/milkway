@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Route Change</title>
+    <style>
+      /* CSS code goes here */
+      .header {
+  background-color: #2C3E50;
+  color: #fff;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 50px;
+  margin-right: 10px;
+}
+
+.date {
+  margin: 20px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.Shift {
+  margin-left: 20px;
+    
+}
+
+.route {
+  margin-top: 20px;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+
+/* Route styles */
+.route {
+ 
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.route p {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.route select {
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.blue-button {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px 90px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  display: block;
+  margin: 20px auto 0;
+  text-align: center;
+}
+
+
+.blue-button:hover {
+  background-color: #2980b9;
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <img src="/css/logo.png" alt="MilkWay Logo" class="logo" />
+      <h1>MilkWay</h1>
+    </div>
+    <div class="date">
+      <input type="date" id="date" />
+      <div class="Shift">
+        <select id="day" name="day">
+          <option value="Both">Both</option>
+          <option value="Morning">Morning</option>
+          <option value="Evening">Evening</option>
+        </select>
+      </div>
+    </div>
+    <div class="route">
+      <div class="container">
+        <div class="route-from">
+          <p>Route from:</p>
+          <select id="route-from" name="route-from">
+            <option value="location-1">Location 1</option>
+            <option value="location-2">Location 2</option>
+            <option value="location-3">Location 3</option>
+          </select>
+        </div>
+        <div class="route-to">
+          <p>Route to:</p>
+          <select id="route-to" name="route-to">
+            <option value="location-1">Location 1</option>
+            <option value="location-2">Location 2</option>
+            <option value="location-3">Location 3</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <button class="blue-button">Update</button>
+  </body>
+</html>

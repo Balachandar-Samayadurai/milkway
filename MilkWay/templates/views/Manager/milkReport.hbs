@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+</head>
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: center;
+  background-color: #f2f2f2;
+}
+
+/* Header styles */
+.header {
+  background-color: #2C3E50;
+  color: #fff;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+/* Add styles for the company logo */
+.logo {
+  height: 50px;
+  margin-right: 10px;
+}
+
+.options-container {
+  margin-top: 100px;
+  width: 90%;
+  max-width: 500px;
+  margin: 60px auto 0;
+  padding: 50px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+}
+
+.select {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.options {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.options select {
+  margin-right: 10px;
+}
+
+.green-button {
+  background-color: #00A000;
+  color: #fff;
+  padding: 10px 30px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+</style>
+<body>
+    <div class="header">
+        <img src="/css/logo.png" alt="MilkWay Logo" class="logo">
+        <h1>MilkWay</h1>
+      </div>
+    
+    <div class="options-container">
+        <div class="select">
+            <h3>Select Month & Year:</h3>
+            <input type="month">
+        </div>
+      <div class="options">
+        <label for="report-type">Report Type:</label>
+        <select id="report-type" name="report-type">
+          <option value="summary">Summary</option>
+          <option value="detailed">Detailed</option>
+        </select>
+      </div>
+      <button class="green-button">Get Report</button>
+    </div>
+</body>
+</html>
